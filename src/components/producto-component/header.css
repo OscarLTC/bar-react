@@ -1,0 +1,12 @@
+.nav{
+    background-color: #618C03;
+    @apply px-2 sm:px-4 py-2.5 
+}
+.nav-position{
+    @apply container flex flex-wrap justify-between items-center mx-auto
+}
+
+.buttons{
+    background-color: #97BF04;
+    @apply p-2 rounded-md
+}
