@@ -1,13 +1,14 @@
 import axios from "axios";
-import "./catalogo.css";
+import "./lista-productos.css";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-export const Catalogo = () => {
+export const ListaProductos = () => {
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
     const obtenerProductos = async () => {
-      const result = await axios.get("http://localhost:8069/producto");
+      const result = await axios.get("http://localhost:8069/producto/all");
       setProductos(result.data);
     };
     obtenerProductos();
@@ -16,14 +17,17 @@ export const Catalogo = () => {
   return (
     <div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
       {productos.map((producto: any) => (
-        <div className="card-producto" key={producto.codigo}>
-          <a href="#">
+        <div
+          className="card-producto hover:brightness-95"
+          key={producto.codigo}
+        >
+          <Link to="#">
             <img
-              className="rounded-t-lg h-64 object-cover w-full border-b-2 "
+              className="rounded-t-lg h-64 object-cover w-full border-b-2"
               src={producto.imagen}
               alt=""
             />
-          </a>
+          </Link>
           <div className="p-4">
             <a href="#">
               <h5 className="mb-2 font-semibold text-xl tracking-tight text-gray-900 ">

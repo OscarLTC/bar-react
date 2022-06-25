@@ -7,7 +7,7 @@ export const Header = () => {
         <a href="/" className="flex items-center space-x-5">
           <img
             src="https://placekitten.com/1200/1200"
-            className="mr-3 w-12 h-12 sm:h-12 rounded-full"
+            className="mr-3 w-16 h-16 sm:h-16 rounded-full"
           />
           <span className="self-center font-mono text-3xl font-semibold whitespace-nowrap dark:text-white">
             Bar La China
@@ -93,7 +93,7 @@ export const Header = () => {
             <li className="buttons lg:px-10 px-5">
               <a
                 href="#"
-                className="block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0   dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                className="block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover: md:p-0   dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
               >
                 Mis Pedidos
               </a>

@@ -1,0 +1,4 @@
+.card-producto{
+    height: 26rem;
+    @apply max-w-sm bg-white rounded-md  border-gray-200  shadow-md border dark:border-zinc-300
+}
