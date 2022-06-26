@@ -1,5 +1,6 @@
 .img{
-    @apply object-cover object-center w-full lg:h-96 md:h-80 h-72;
+    @apply object-cover object-center lg:h-96 md:h-80 h-72;
+    width: 90%;
 }
 
 .precio{
