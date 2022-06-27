@@ -1,8 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
-import { loadingState } from "../../../storage/loading.atom";
-import { productoSelector } from "../../../storage/producto.selector";
 import { Filtro } from "./filtro";
 import { ListaProductos } from "./lista-productos";
 import { CatalagoSkeleton } from "./skeleton";

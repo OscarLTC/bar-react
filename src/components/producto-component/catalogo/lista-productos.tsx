@@ -1,9 +1,6 @@
-import axios from "axios";
 import "./lista-productos.css";
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { loadingState } from "../../../storage/loading.atom";
+import { useRecoilValue } from "recoil";
 import { productoSelector } from "../../../storage/producto.selector";
 
 export const ListaProductos = () => {

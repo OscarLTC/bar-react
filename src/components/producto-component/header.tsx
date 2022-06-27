@@ -42,7 +42,7 @@ export const Header = () => {
             />
             <button className="buttons">
               <svg
-                className="w-6 h-6 text-white"
+                className="w-6 h-6 fill-current"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +81,7 @@ export const Header = () => {
           id="mobile-menu-3"
         >
           <div className="relative mt-3 sm:hidden">
-            <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+            <div className="flex absolute inset-y-0 left-0  items-center pl-3 pointer-events-none">
               <svg
                 className="w-5 h-5 text-white"
                 fill="currentColor"
@@ -96,7 +96,7 @@ export const Header = () => {
             <li className="buttons lg:px-10 px-5">
               <Link
                 to="/"
-                className="block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover: md:p-0   dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                className="block py-2 pr-4 pl-3 border-b border-gray-100  md:border-0 md:p-0 "
               >
                 Mis Pedidos
               </Link>
@@ -104,7 +104,7 @@ export const Header = () => {
             <li className="buttons">
               <Link
                 to="/"
-                className="block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                className="block py-2 pr-4 pl-3 border-b border-gray-100  md:border-0 md:p-0"
               >
                 <svg
                   className="fill-current"
