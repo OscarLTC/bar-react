@@ -8,5 +8,5 @@
 
 .buttons{
     background-color: #97BF04;
-    @apply p-2 rounded-md
+    @apply p-2 rounded-md hover:text-green-900 text-white
 }
