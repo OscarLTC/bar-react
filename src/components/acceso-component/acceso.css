@@ -1,0 +1,28 @@
+.bg{
+    background-image: url("../../public/zyro-image.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+
+    @apply brightness-110
+}
+.card-acceso{
+    @apply backdrop-blur-md bg-white/30 p-9 w-1/3 rounded-xl  shadow-2xl
+}
+
+.titulo{
+    color: #365902 ;
+    @apply font-bold text-5xl pb-10
+}
+
+.titulo-codigo{
+    
+    background:#618C03; 
+    @apply absolute inset-x-0 top-0 text-center text-white text-2xl rounded-t-xl pt-4 h-24;
+
+}
+
+.input-codigo{
+    @apply h-20 w-14 text-center text-5xl rounded-md border-2 border-black
+}
