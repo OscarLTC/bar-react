@@ -1,7 +1,46 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { categoriaVisibleAtomo, marcaAtomo, marcaVisibleAtomo, productoAtomo, productoFiltroMarCatAtomo, productoFiltroNombreAtomo, productoFiltroPrecioAtomo } from "../../storage/producto.atom";
 import "./header.css";
 
 export const Header = () => {
+
+  const [busqueda, setBusqueda] = useState<string>();
+
+  const [productoFiltroMarCat, setProductoFiltroMarCat] = useRecoilState(productoFiltroMarCatAtomo);
+  const [productoFiltroPrecio, setProductoFiltroPrecio] = useRecoilState(productoFiltroPrecioAtomo);
+  const [productoFiltroNombre, setProductoFiltroNombre] = useRecoilState(productoFiltroNombreAtomo);
+
+  const [categorias, setCategorias] = useRecoilState(marcaAtomo);
+
+  const [preInicial, setPreInicial] = useState(0.0);
+  const [preFinal, setPreFinal] = useState(0.0);
+
+  const [marcasVisibles, setMarcasVisibles] = useRecoilState<any>(marcaVisibleAtomo);
+  const [categoriasVisibles, setCategoriasVisibles] = useRecoilState<any>(categoriaVisibleAtomo);
+
+  const [productos, setProductos] = useRecoilState(productoAtomo);
+
+  const buscarProducto = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
+    // console.log("hoala");
+    //Limpiando filtros
+    setProductoFiltroMarCat([]);
+    setProductoFiltroPrecio([]);
+    setCategoriasVisibles(categorias.map((c:any) => ({...c, activo: false})));
+    setMarcasVisibles([]);
+    const $desde:(any) = document.getElementById("desde");
+    $desde !== null ? $desde.value = "" : null; 
+    const $hasta:(any) = document.getElementById("hasta");
+    $hasta !== null ? $hasta.value = "" : null; 
+    setPreInicial(0);
+    setPreFinal(0);
+
+    //Filtrando por nombre
+    setProductoFiltroNombre(productos.filter((p:any) => p.descripcion.toLowerCase().includes(busqueda?.toLowerCase())));
+    console.log();
+  }
+
   return (
     <nav className="nav">
       <div className="nav-position">
@@ -39,8 +78,9 @@ export const Header = () => {
               id="search-navbar"
               className="block p-2 w-52 lg:w-80   text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-sm  dark:border-green-800 border-none dark:placeholder-gray-400"
               placeholder="Buscar..."
+              onChange={e => setBusqueda(e.target.value)}
             />
-            <button className="buttons">
+            <button className="buttons" onClick={e => buscarProducto(e)}>
               <svg
                 className="w-6 h-6 fill-current"
                 fill="currentColor"

@@ -1,15 +1,8 @@
 import axios from "axios";
 import { atom, selector, useRecoilState, useRecoilValue } from "recoil";
+import { categoriaAtomo, categoriaVisibleAtomo, marcaAtomo, marcaVisibleAtomo, productoAtomo } from "./producto.atom";
 
-export const productoAtomo = atom({
-  key: "productoAtomo",
-  default: []  
-});
 
-export const productoVisibleAtomo = atom({
-  key: "productoVisibleAtomo",
-  default: []
-})
 
 export const productoSelector = selector({
   key: "productoSelector",
@@ -22,6 +15,33 @@ export const productoSelector = selector({
     return productos;
   }
 })
+
+export const categoriaSelector = selector({
+  key: "categoriaSelector",
+  get: async () => {
+    const categoriasJson = await axios.get("http://localhost:8069/categoria/all");
+    const [catAtomo, setCatAtomo] = useRecoilState(categoriaAtomo);
+    const [catVisibleAtomo, setCatVisibleAtomo] = useRecoilState(categoriaVisibleAtomo);
+    setCatAtomo(categoriasJson.data);
+    const tempCat:any = [];
+    categoriasJson.data.forEach((c:any) => {tempCat.push({...c, activo: false});})
+    setCatVisibleAtomo(tempCat);
+  }
+})
+
+export const marcaSelector = selector({
+  key: "categoriaSelector",
+  get: async () => {
+    const categoriasJson = await axios.get("http://localhost:8069/marca/all");
+    const [marAtomo, setMarAtomo] = useRecoilState(marcaAtomo);
+    const [marVisibleAtomo, setMarVisibleAtomo] = useRecoilState(marcaVisibleAtomo);
+    setMarAtomo(categoriasJson.data);
+    setMarVisibleAtomo(categoriasJson.data);
+  }
+})
+
+
+
 
 
 

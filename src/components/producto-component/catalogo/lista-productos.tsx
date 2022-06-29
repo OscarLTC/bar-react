@@ -1,29 +1,36 @@
 import "./lista-productos.css";
 import { Link } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { productoAtomo, productoSelector, productoVisibleAtomo } from "../../../storage/producto.selector";
 import axios from "axios";
 import { useEffect } from "react";
+import { productoFiltroMarCatAtomo, productoFiltroNombreAtomo, productoFiltroPrecioAtomo, productoVisibleAtomo } from "../../../storage/producto.atom";
+import { productoSelector } from "../../../storage/producto.selector";
 
 export const ListaProductos = () => {
   const p = useRecoilValue(productoSelector);
   const [productos, setProductos] = useRecoilState(productoVisibleAtomo);
+  const [productoFiltroMarCat, setProductoFiltroMarCat] = useRecoilState(productoFiltroMarCatAtomo);
+  const [productoFiltroPrecio, setProductoFiltroPrecio] = useRecoilState(productoFiltroPrecioAtomo);
+  const [productoFiltroNombre, setProductoFiltroNombre] = useRecoilState(productoFiltroNombreAtomo);
 
 
   useEffect(() => {
     setProductos(p);
   }, [])
   
-  const listarProductos = async () => {
+  const escogerProductos = ():never[] => {
     
-    // setProductos(await (await axios.get("http://localhost:8069/producto/all")).data);
+    if (productoFiltroMarCat.length !== 0) return productoFiltroMarCat
+    else if (productoFiltroPrecio.length !== 0) return productoFiltroPrecio
+    else if (productoFiltroNombre.length !== 0) return productoFiltroNombre
+    else return productos;
 
   }
 
 
   return (
     <div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
-      {productos.map((producto: any) => (
+      {escogerProductos().map((producto: any) => (
         <Link to={"/" + producto.codigo} key={producto.codigo}>
           <div className="card-producto hover:brightness-95">
             <img 
