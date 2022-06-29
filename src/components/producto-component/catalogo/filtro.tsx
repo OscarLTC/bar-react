@@ -16,16 +16,20 @@ export const Filtro = () => {
   const [productos, setProductos] = useRecoilState(productoAtomo);
   const [productosVisibles, setProductosVisibles] = useRecoilState(productoVisibleAtomo);
 
+  const [preInicial, setPreInicial] = useState(0.0);
+  const [preFinal, setPreFinal] = useState(0.0);
+
   useEffect(() => {
     
     cargarCategorias();
     cargarMarcas();
-    console.log(productos);
+    // console.log(productos);
   }, [])
 
   useEffect(() => {
     // console.log(marcasVisibles);
     let productosFiltrados:any = []
+    console.log("activando")
     if (categoriasVisibles.length === 1 || marcasVisibles.length === 1){
       
       
@@ -42,6 +46,22 @@ export const Filtro = () => {
       setProductosVisibles(productos);  
     }
   }, [categoriasVisibles, marcasVisibles]);
+
+  useEffect(() => {
+
+    let productosFiltrados:any = []
+
+    productos.forEach((p:any) => {
+      p.precio >= preInicial && (preFinal >0 ? p.precio <= preFinal: true) ? productosFiltrados.push(p) : null;
+    })
+    // console.log(productosFiltrados);
+    setProductosVisibles(productosFiltrados);
+
+    //Vaciamos marcas y categorias a como estaban al inicio
+     setCategoriasVisibles(categorias.map(c => ({...c, activo: false})));
+     setMarcasVisibles([]);
+
+  }, [preInicial, preFinal])
   
   const cargarCategorias = async () => {
     const categoriasJson = await axios.get("http://localhost:8069/categoria/all");
@@ -76,15 +96,36 @@ export const Filtro = () => {
     }
   }
 
+  function soloNumeros (e:React.ChangeEvent<HTMLInputElement>) {
+    let valor = e.target.value;
+    valor = valor.substring(0,1) === "0" ? valor = valor.substring(1) : valor;
+    let nuevoValor = "";
+
+    for (let c of valor){
+      if (c.charCodeAt(0) >=48 && c.charCodeAt(0)<=57){
+        nuevoValor += c;
+      }
+    }
+    console.log(nuevoValor);
+    if (nuevoValor === "") nuevoValor = "0";
+    const $input:(any) = document.getElementById(e.target.id);
+    $input !== null ? $input.value = nuevoValor : null; 
+    
+    e.target.id === "desde" ? setPreInicial(parseFloat(nuevoValor)) : setPreFinal(parseFloat(nuevoValor));
+    
+  }
+
+  
+
 
 
   return (
     <div className="w-4/12 bg-gray-100 px-10 py-8 rounded-md">
       <div className="text-3xl font-medium text-slate-600 mb-3">Precios</div>
       <div className="flex flex-row flex-wrap justify-between">
-        <input className="w-32 rounded-md border-2 px-4 py-1 my-2 text-center border-green-700 outline-none" placeholder="desde"/>
+        <input id = "desde" className="w-32 rounded-md border-2 px-4 py-1 my-2 text-center border-green-700 outline-none" placeholder="desde" onChange={e => soloNumeros(e)}/>
         <span className="text-2xl font-medium text-slate-600 mx-3">-</span>
-        <input className="w-32 rounded-md border-2 px-4 py-1 my-2 text-center border-green-700 outline-none" placeholder="hasta"/>
+        <input id = "hasta" className="w-32 rounded-md border-2 px-4 py-1 my-2 text-center border-green-700 outline-none" placeholder="hasta" onChange={e => soloNumeros(e)}/>
       </div>
 
       <br/>
