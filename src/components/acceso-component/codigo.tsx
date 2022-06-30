@@ -28,7 +28,7 @@ export const Acceso = () => {
         contrasena: usuario.password,
         correo: usuario.email,
         rol: {
-          rol: 2,
+          codigo: 2,
           nombre: "cliente",
         },
       });
