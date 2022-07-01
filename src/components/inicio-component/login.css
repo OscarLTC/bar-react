@@ -1,11 +1,4 @@
-.linksss{
-    color: rgb(71, 255, 86);
-    display: inline;
-}
-
-.label-alert{
-    color: red;
-    font-weight: bold;
-    width: fit-content;
-    height: fit-content;
+.links{
+    color: #365902;
+    @apply font-semibold underline hover:text-black;
 }
