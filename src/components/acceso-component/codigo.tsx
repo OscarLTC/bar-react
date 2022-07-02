@@ -23,15 +23,21 @@ export const Acceso = () => {
     }
 
     if (cod == codigo) {
-      navigate("/");
-      axios.post("http://localhost:8069/usuario", {
-        contrasena: usuario.password,
-        correo: usuario.email,
-        rol: {
-          codigo: 2,
-          nombre: "cliente",
-        },
-      });
+      if (false) {
+        navigate("/");
+        axios.post("http://localhost:8069/usuario", {
+          contrasena: usuario.password,
+          correo: usuario.email,
+          rol: {
+            codigo: 2,
+            nombre: "cliente",
+          },
+        });
+      } else {
+        navigate("/olvidaste/verificacion");
+      }
+    } else {
+      alert("el codigo es incorrecto");
     }
   };
 

@@ -1,11 +1,11 @@
 import axios from "axios";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import "./login.css";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { UserState } from "../../storage/usuario.atom";
 
-export const Login = () => {
-  const [usuario, setUsuario] = useState<any>([]);
+export const Verificacion = () => {
+  const [usuario, setUsuario] = useRecoilState(UserState);
   const navigate = useNavigate();
 
   const {
@@ -14,65 +14,63 @@ export const Login = () => {
     handleSubmit,
   } = useForm();
 
-  const onLoginSubmit = async (data: any) => {
-    const user: any = await axios.post("http://localhost:8069/usuario/login", {
-      email: data.email,
-      pass: data.password,
-    });
-    setUsuario(user.data);
-
-    if (user.data.correo == data.email) {
-      navigate("/");
+  const onPassSubmit = async (data: any) => {
+    if (data.pass === data.password) {
+      await axios.put("http://localhost:8069/usuario", {
+        email: usuario.correo,
+        pass: data.pass,
+      });
+      navigate("/login");
     } else {
-      alert("Usuario o contraseña incorrectos");
+      alert("Las contraseñas son distintas");
     }
   };
-
   return (
     <div>
       <div className="bg">
         <div className="flex flex-row min-h-screen justify-center text-center items-center ">
-          <form className="card-acceso" onSubmit={handleSubmit(onLoginSubmit)}>
-            <h1 className="titulo">Iniciar Sesion</h1>
+          <form
+            className="card-acceso py-20"
+            onSubmit={handleSubmit(onPassSubmit)}
+          >
             <div>
-              <label className="block mb-2 text-lg  font-bold text-gray-900 ">
-                Correo
+              <label className="block mb-2 text-2xl  font-bold text-[#315705] ">
+                Nueva Contraseña
               </label>
               <div className="relative mb-6 px-10">
                 <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"></div>
                 <input
-                  type="email"
-                  id="correo"
+                  type="text"
+                  id="pass"
                   autoFocus
                   className="bg-gray-50 border-2 border-gray-800 text-gray-900 text-sm rounded-lg block w-full p-2.5  "
-                  placeholder="name@flowbite.com"
-                  {...register("email", {
+                  {...register("pass", {
                     required: {
                       value: true,
-                      message: "El correo es requerido",
+                      message: "Este campo es requerido",
                     },
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                      message: "El correo no es válido",
+                    minLength: {
+                      value: 6,
+                      message: "La contraseña debe tener al menos 6 caracteres",
                     },
                   })}
                 />
-                {errors.email && (
-                  <p className="text-red-900 text-lg italic">
-                    {errors.email.message}
+                {errors.pass && (
+                  <p className="text-red-900 text-lg bold">
+                    {errors.pass.message}
                   </p>
                 )}
               </div>
             </div>
             <div>
-              <label className="block mb-2 text-lg  font-bold text-gray-900 ">
-                Contraseña
+              <label className="block mb-2 text-2xl  font-bold text-[#315705] ">
+                Confirmar Contraseña
               </label>
               <div className="flex px-10">
                 <input
                   type="password"
                   id="website-admin"
-                  className="rounded-lg border-2 bg-gray-50 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-900 p-2.5"
+                  className="rounded-lg border-2 bg-gray-50 text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-900 p-2.5"
                   placeholder=""
                   {...register("password", {
                     required: {
@@ -91,17 +89,7 @@ export const Login = () => {
                   {errors.password.message}
                 </p>
               )}
-
               <button className="buttons  mt-10 px-14">Acceder</button>
-            </div>
-            <br></br>
-            <div className="space-x-10 inline-flex">
-              <Link to={"/olvidaste"}>
-                <h5 className="links">¿Olvidaste tu contraseña?</h5>
-              </Link>
-              <Link to={"/registro/"}>
-                <h5 className="links">¿Eres nuevo? Registrate aqui</h5>
-              </Link>
             </div>
           </form>
         </div>
